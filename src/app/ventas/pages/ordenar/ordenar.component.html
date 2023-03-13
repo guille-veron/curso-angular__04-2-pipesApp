@@ -1,0 +1,81 @@
+<div class="text-layout">
+    <h1>Pipes personalizados</h1>
+    <p>
+        Pipes creados por {{'nosotros' | mayusculas : enMayusculas}}
+    </p>    
+</div>
+<p-toolbar>
+    <div class="p-toolbar-group-left"></div>
+
+    <div class="p-toolbar-group-right">
+        <button pButton type="button" 
+            class="p-button-raised p-button-info p-mr-1 "
+            (click)="toggleMayusculas()">
+            toggle Mayusculas
+        </button>
+        <button pButton icon="pi pi-sort"
+                  label="Por Brand"
+                  class="p-mr-1"
+                  (click)="ordenar('brand')">
+        </button>
+        <button pButton icon="pi pi-sort"
+                label="Año"
+                class="p-mr-1 p-button-success"
+                (click)="ordenar('year')">
+        </button>
+        <button pButton icon="pi pi-sort"
+                label="Por Color"
+                class="p-mr-1 p-button-help"
+                (click)="ordenar('color')">
+        </button>        
+    </div>
+</p-toolbar>
+
+<div class="p-grid">
+    <div class="p-col p-mt-2">
+        <p-table [value]="cars | ordenar:ordenarPor:orden">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Vin</th>
+                    <th>Year</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.vin}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
+<div class="p-grid">
+    <div class="p-col p-mt-2">
+        <!-- la funcion sorteable modifica el array, por eso le mandp una copia con el slice -->
+        <p-table [value]="cars | slice:0">
+            <ng-template pTemplate="header">
+                <tr>
+                    
+                    <th pSortableColumn="vin">Vin <p-sortIcon field="vin"></p-sortIcon></th>
+                    <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
+                    <th pSortableColumn="brand">Brand <p-sortIcon field="brand"></p-sortIcon></th>
+                    <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th> 
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.vin}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
